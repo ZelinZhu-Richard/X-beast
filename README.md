@@ -18,9 +18,68 @@
 六位年收入百万美元级X创作者的方法论 + X开源算法精确权重数据，<br>
 提炼 6 个核心心智模型、10 条决策启发式、完整的选题-写作-增长操作手册。
 
-[看效果](#效果示例) · [安装](#安装) · [蒸馏了什么](#蒸馏了什么) · [调研来源](#调研来源)
+[看效果](#效果示例) · [安装](#安装) · [v2.0更新](#v20-更新) · [蒸馏了什么](#蒸馏了什么) · [调研来源](#调研来源)
 
 </div>
+
+---
+
+## v2.0 更新
+
+这是一次架构级重构，核心变化：
+
+### 1. 渐进式披露（SKILL.md 从769行 → 249行）
+
+v1把所有内容塞进一个文件。v2拆成三层：
+
+| 层级 | 内容 | 加载时机 |
+|------|------|---------|
+| **SKILL.md（249行）** | 路由表 + 5个场景执行规则 | 每次激活 |
+| **操作层references（5个文件）** | 写作工坊/算法/增长/质量/心智模型 | 按场景按需加载 |
+| **调研层research（6个文件）** | 原始调研报告 | 仅追溯来源时 |
+
+为什么这么做：Skill.md越长，AI实际执行时越容易「淹没在知识里忘了动手」。249行的路由+执行规则让AI先动起来，需要深入知识时再按需加载。
+
+### 2. 场景E：账号诊断与数据采集
+
+v1只有写推文/选题/审阅/增长策略4个场景。v2新增**第5个场景：账号诊断**。
+
+流程：
+- 通过 computer-use / 浏览器工具 自动采集用户近100条推文数据
+- 如果自动采集失败，引导用户手动提供数据（三级降级）
+- 生成经济学人风格的HTML诊断报告（KPI/内容ROI/传播漏斗/时间分析/品牌叙事/行动建议）
+- 所有数据和报告保存在 `user-data/{username}/` 目录
+
+### 3. 用户数据持久化
+
+Skill现在能「记住用户」。每次激活时：
+- 自动检查是否有该用户的历史诊断数据
+- 如有 → 静默读取个性化策略，让所有场景的建议更精准
+- 如超过30天 → 提醒重新诊断
+
+数据结构：
+```
+user-data/{username}/
+├── profile.md              # 账号基本信息
+├── tweets_{date}.json      # 推文原始数据
+├── tweets_{date}.md        # 可读版汇总
+├── report_{date}.html      # 诊断报告
+└── strategy.md             # 个性化策略
+```
+
+### 4. A/B实测验证
+
+我们对v2做了真实的A/B测试——同一个prompt分别用「带skill」和「不带skill」两个子agent跑：
+
+| 维度 | 无skill | 有skill | 差距 |
+|------|---------|---------|------|
+| 内容质量 | 7/10 | 8/10 | +1 |
+| 策略深度 | 3/10 | 9/10 | **+6** |
+| 个性化 | 1/10 | 8/10 | **+7** |
+| 可操作性 | 4/10 | 9/10 | **+5** |
+| 避坑能力 | 2/10 | 9/10 | **+7** |
+
+推文本身的质量差距不大（好的LLM都能写像样的推文），但**策略层面的增量巨大**——知道为什么这样写、什么时候发、发了之后数据会怎样。
 
 ---
 
@@ -110,6 +169,23 @@ X导师     ❯ 找到瓶颈了。
             预期：日均增粉5-10，4-8周到1K。
 ```
 
+### v2.0新增：账号诊断报告
+
+```
+用户      ❯ 分析一下我的X账号 @AlchainHust
+
+X导师     ❯ 发现 user-data/AlchainHust/ 有历史数据（2026-04-06采集）。
+            上次诊断的核心发现：
+
+            1. 结构性错配：34%精力给了ROI最低的AI评论（均值37 likes），
+               橙皮书类均值480+ likes，差距13倍
+            2. 收藏型账号：书签率(4.38‰) > 点赞率(3.79‰)
+            3. 发布时间错配：最常发的16:00互动率仅3.1‰，
+               最优10:00高达23.7‰
+
+            要用现有数据直接出报告，还是重新采集最新数据？
+```
+
 ---
 
 ## 安装
@@ -118,7 +194,7 @@ X导师     ❯ 找到瓶颈了。
 npx skills add alchaincyf/x-mentor-skill
 ```
 
-安装后，说「帮我写条推文」「X策略」「推特怎么涨粉」「帮我审阅这条tweet」即可激活。
+安装后，说「帮我写条推文」「X策略」「推特怎么涨粉」「帮我审阅这条tweet」「分析我的X账号」即可激活。
 
 ---
 
@@ -173,7 +249,17 @@ npx skills add alchaincyf/x-mentor-skill
 
 ## 调研来源
 
-6个调研文件，共2475行，全部在 [`references/research/`](references/research/) 目录：
+### 操作层references（v2.0新增）
+
+| 文件 | 内容 | 行数 |
+|------|------|------|
+| `references/writing-workshop.md` | 短推文/Hook/Thread写法/选题系统 | ~120 |
+| `references/algorithm-niche.md` | X算法速查 + AI赛道专精 | ~130 |
+| `references/growth-monetization.md` | 增长引擎 + 变现 + 流派对比 | ~100 |
+| `references/quality-analytics.md` | 质量清单 + 反模式 + 复盘 + 报告模板 | ~130 |
+| `references/mental-models-heuristics.md` | 6个心智模型 + 10条启发式 | ~220 |
+
+### 调研层research
 
 | 文件 | 内容 | 行数 |
 |------|------|------|
@@ -207,7 +293,7 @@ npx skills add alchaincyf/x-mentor-skill
 3. **交叉验证提炼**：从6个人的方法论中找共识框架和分歧点
 4. **构建操作手册**：不模拟任何人的语气，而是给出可直接执行的步骤
 5. **双Agent验证**：独立Agent做质量测试（已知测试+边缘测试+风格测试）
-6. **auto-optimizer迭代**：用8维度rubric评分，hill-climbing优化到90分
+6. **auto-optimizer迭代**：用8维度rubric评分，hill-climbing优化到88分
 
 想蒸馏其他主题？安装女娲：
 
@@ -224,15 +310,15 @@ npx skills add alchaincyf/nuwa-skill
 ```
 x-mentor-skill/
 ├── README.md
-├── SKILL.md                              # 可直接安装使用（769行）
+├── SKILL.md                              # 路由+执行规则（249行，v2.0精简版）
 ├── references/
-│   └── research/                         # 6个调研文件（2475行）
-│       ├── 01-writing-methods.md         # Cole/Bush/Ship30 方法论
-│       ├── 02-growth-engines.md          # Sahil/Welsh 增长引擎
-│       ├── 03-content-brand.md           # Koe/Hormozi 品牌策略
-│       ├── 04-platform-mechanics.md      # X算法机制+开源代码
-│       ├── 05-ai-tech-niche.md           # AI赛道专精策略
-│       └── 06-cases-antipatterns.md      # 案例拆解+失败模式
+│   ├── writing-workshop.md               # 写作工坊（按需加载）
+│   ├── algorithm-niche.md                # 算法+AI赛道（按需加载）
+│   ├── growth-monetization.md            # 增长+变现（按需加载）
+│   ├── quality-analytics.md              # 质量+复盘+报告模板（按需加载）
+│   ├── mental-models-heuristics.md       # 心智模型+启发式（按需加载）
+│   └── research/                         # 6个调研文件（2475行，追溯来源时读取）
+├── user-data/                            # 用户诊断数据（自动生成）
 └── examples/
     └── account-diagnosis-demo.md         # 真实X账号诊断案例
 ```
@@ -268,10 +354,6 @@ x-mentor-skill/
 ## 许可证
 
 MIT — 随便用，随便改，随便蒸馏。
-
----
-
-
 
 ---
 
