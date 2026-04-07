@@ -22,7 +22,7 @@ description: |
 
 ## 问题路由
 
-收到问题后，先判断类型，加载对应reference：
+收到问题后，先判断类型，加载对应knowledge reference：
 
 | 用户问题类型 | 执行场景 | 按需加载 |
 |------------|---------|---------|
@@ -39,7 +39,7 @@ description: |
 
 **加载原则**：
 - 只加载当前场景需要的reference，不要一次全读
-- `references/research/` 下的6份原始调研报告仅在需要追溯来源时读取
+- `knowledge/x-mentor-core/research/` 下的6份原始调研报告仅在需要追溯来源时读取
 - 如有用户历史数据（`user-data/`），优先静默读取 `strategy.md`
 
 ---
@@ -215,7 +215,7 @@ Step 5: 个性化策略更新
 3. 超过30天 → 提醒重新诊断
 4. 如无 → 适当时机建议做一次诊断
 
-数据格式规范和报告HTML模板详见 `references/quality-analytics.md`。
+数据格式规范和报告HTML模板详见 `knowledge/x-mentor-core/quality-analytics.md`。
 
 ---
 
@@ -229,24 +229,24 @@ Step 5: 个性化策略更新
 6. **平台风险**：X本身在变化，单一平台策略存在风险
 
 **调研时间**：2026年4月6日
-**调研来源**：6份报告共2475行，详见 `references/research/`
+**调研来源**：6份报告共2475行，详见 `knowledge/x-mentor-core/research/`
 
 ---
 
-## Reference索引
+## Knowledge索引
 
 | 文件 | 内容 | 行数 |
 |------|------|------|
 | **操作层（按需加载）** | | |
-| `references/writing-workshop.md` | 短推文/Hook/Thread/选题系统 | ~120 |
-| `references/algorithm-niche.md` | X算法速查 + AI赛道专精 | ~130 |
-| `references/growth-monetization.md` | 增长引擎 + 变现 + 流派对比 | ~100 |
-| `references/quality-analytics.md` | 质量清单 + 反模式 + 复盘 + 报告模板 | ~130 |
-| `references/mental-models-heuristics.md` | 6个心智模型 + 10条启发式 | ~220 |
+| `knowledge/x-mentor-core/writing-workshop.md` | 短推文/Hook/Thread/选题系统 | ~120 |
+| `knowledge/x-mentor-core/algorithm-niche.md` | X算法速查 + AI赛道专精 | ~130 |
+| `knowledge/x-mentor-core/growth-monetization.md` | 增长引擎 + 变现 + 流派对比 | ~100 |
+| `knowledge/x-mentor-core/quality-analytics.md` | 质量清单 + 反模式 + 复盘 + 报告模板 | ~130 |
+| `knowledge/x-mentor-core/mental-models-heuristics.md` | 6个心智模型 + 10条启发式 | ~220 |
 | **调研层（追溯来源时读取）** | | |
-| `references/research/01-writing-methods.md` | Cole/Bush/Ship 30体系 | 503 |
-| `references/research/02-growth-engines.md` | Sahil/Welsh增长策略 | 386 |
-| `references/research/03-content-brand.md` | Koe/Hormozi内容哲学 | 398 |
-| `references/research/04-platform-mechanics.md` | X算法与平台规则 | 415 |
-| `references/research/05-ai-tech-niche.md` | AI赛道特殊策略 | 404 |
-| `references/research/06-cases-antipatterns.md` | 案例与反模式 | 369 |
+| `knowledge/x-mentor-core/research/01-writing-methods.md` | Cole/Bush/Ship 30体系 | 503 |
+| `knowledge/x-mentor-core/research/02-growth-engines.md` | Sahil/Welsh增长策略 | 386 |
+| `knowledge/x-mentor-core/research/03-content-brand.md` | Koe/Hormozi内容哲学 | 398 |
+| `knowledge/x-mentor-core/research/04-platform-mechanics.md` | X算法与平台规则 | 415 |
+| `knowledge/x-mentor-core/research/05-ai-tech-niche.md` | AI赛道特殊策略 | 404 |
+| `knowledge/x-mentor-core/research/06-cases-antipatterns.md` | 案例与反模式 | 369 |

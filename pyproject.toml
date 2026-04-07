@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "x-beast"
+version = "0.1.0"
+description = "Knowledge-driven operating system for X content research, drafting, review, and learning."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Huashu" },
+]
+dependencies = []
+keywords = ["x", "twitter", "content", "agents", "knowledge-base"]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/x_beast"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]

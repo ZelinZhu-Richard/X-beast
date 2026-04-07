@@ -1,6 +1,6 @@
 <div align="center">
 
-# X导师.skill
+# X-BEAST
 
 > *「格式化是你能对写作做的最简单的10倍提升。」——Nicolas Cole*
 
@@ -16,7 +16,8 @@
 
 基于 Nicolas Cole、Dickie Bush、Sahil Bloom、Justin Welsh、Dan Koe、Alex Hormozi<br>
 六位年收入百万美元级X创作者的方法论 + X开源算法精确权重数据，<br>
-提炼 6 个核心心智模型、10 条决策启发式、完整的选题-写作-增长操作手册。
+提炼 6 个核心心智模型、10 条决策启发式、完整的选题-写作-增长操作手册。<br>
+现在以 **X-BEAST** 仓库形态组织：知识库、pipeline、模板、数据、脚本、测试分层清晰。
 
 [看效果](#效果示例) · [安装](#安装) · [v2.0更新](#v20-更新) · [蒸馏了什么](#蒸馏了什么) · [调研来源](#调研来源)
 
@@ -35,8 +36,8 @@ v1把所有内容塞进一个文件。v2拆成三层：
 | 层级 | 内容 | 加载时机 |
 |------|------|---------|
 | **SKILL.md（249行）** | 路由表 + 5个场景执行规则 | 每次激活 |
-| **操作层references（5个文件）** | 写作工坊/算法/增长/质量/心智模型 | 按场景按需加载 |
-| **调研层research（6个文件）** | 原始调研报告 | 仅追溯来源时 |
+| **knowledge/x-mentor-core（5个操作文件）** | 写作工坊/算法/增长/质量/心智模型 | 按场景按需加载 |
+| **knowledge/x-mentor-core/research（6个文件）** | 原始调研报告 | 仅追溯来源时 |
 
 为什么这么做：Skill.md越长，AI实际执行时越容易「淹没在知识里忘了动手」。249行的路由+执行规则让AI先动起来，需要深入知识时再按需加载。
 
@@ -85,7 +86,22 @@ user-data/{username}/
 
 ## 工作逻辑
 
-![X导师.skill 路由逻辑](工作逻辑.png)
+![X导师.skill 路由逻辑](docs/architecture/workflow-diagram.png)
+
+---
+
+## Phase 1: Single-Brief Daily Draft Flow
+
+Phase 1 is a manual, human-in-the-loop editorial cycle. One daily brief should produce one reviewed post draft. No autoposting is included, and the repo is being used as a working editorial room rather than a theory archive.
+
+1. Fill in [templates/daily-brief.template.md](templates/daily-brief.template.md) with the day's topic, why it matters now, audience, source notes, raw opinion, format, constraints, and optional CTA.
+2. Score the brief with [knowledge/rubrics/idea-scorecard.md](knowledge/rubrics/idea-scorecard.md) to decide whether it should be drafted today, saved for backlog, or reframed first.
+3. Generate 3 hook options and choose one using [knowledge/rubrics/hook-rubric.md](knowledge/rubrics/hook-rubric.md).
+4. Build 2 candidate drafts in [templates/post-draft.template.md](templates/post-draft.template.md) so the room can compare sharpness versus defensibility.
+5. Route the draft through the required reviewers using [pipeline/05-review-router.md](pipeline/05-review-router.md).
+6. Consolidate reviewer notes in [templates/review-report.template.md](templates/review-report.template.md), keeping blockers, recommendations, and optional polish separate.
+7. Choose one final draft after truth, usefulness, and voice conflicts are resolved in that order.
+8. Prepare follow-up responses with [templates/reply-bank.template.md](templates/reply-bank.template.md) so the post can continue the right conversation after publishing.
 
 ---
 
@@ -249,26 +265,26 @@ npx skills add alchaincyf/x-mentor-skill
 
 ## 调研来源
 
-### 操作层references（v2.0新增）
+### 操作层knowledge（v2.0新增）
 
 | 文件 | 内容 | 行数 |
 |------|------|------|
-| `references/writing-workshop.md` | 短推文/Hook/Thread写法/选题系统 | ~120 |
-| `references/algorithm-niche.md` | X算法速查 + AI赛道专精 | ~130 |
-| `references/growth-monetization.md` | 增长引擎 + 变现 + 流派对比 | ~100 |
-| `references/quality-analytics.md` | 质量清单 + 反模式 + 复盘 + 报告模板 | ~130 |
-| `references/mental-models-heuristics.md` | 6个心智模型 + 10条启发式 | ~220 |
+| `knowledge/x-mentor-core/writing-workshop.md` | 短推文/Hook/Thread写法/选题系统 | ~120 |
+| `knowledge/x-mentor-core/algorithm-niche.md` | X算法速查 + AI赛道专精 | ~130 |
+| `knowledge/x-mentor-core/growth-monetization.md` | 增长引擎 + 变现 + 流派对比 | ~100 |
+| `knowledge/x-mentor-core/quality-analytics.md` | 质量清单 + 反模式 + 复盘 + 报告模板 | ~130 |
+| `knowledge/x-mentor-core/mental-models-heuristics.md` | 6个心智模型 + 10条启发式 | ~220 |
 
 ### 调研层research
 
 | 文件 | 内容 | 行数 |
 |------|------|------|
-| `01-writing-methods.md` | Nicolas Cole / Dickie Bush / Ship 30 for 30 写作方法论 | 503 |
-| `02-growth-engines.md` | Sahil Bloom / Justin Welsh 增长引擎与系统化运营 | 386 |
-| `03-content-brand.md` | Dan Koe / Alex Hormozi 内容品牌与价值前置 | 398 |
-| `04-platform-mechanics.md` | X算法机制、开源代码分析、TweepCred | 415 |
-| `05-ai-tech-niche.md` | AI/科技赛道策略、Build in Public、中国开发者出海 | 404 |
-| `06-cases-antipatterns.md` | 成功案例拆解与常见失败模式 | 369 |
+| `knowledge/x-mentor-core/research/01-writing-methods.md` | Nicolas Cole / Dickie Bush / Ship 30 for 30 写作方法论 | 503 |
+| `knowledge/x-mentor-core/research/02-growth-engines.md` | Sahil Bloom / Justin Welsh 增长引擎与系统化运营 | 386 |
+| `knowledge/x-mentor-core/research/03-content-brand.md` | Dan Koe / Alex Hormozi 内容品牌与价值前置 | 398 |
+| `knowledge/x-mentor-core/research/04-platform-mechanics.md` | X算法机制、开源代码分析、TweepCred | 415 |
+| `knowledge/x-mentor-core/research/05-ai-tech-niche.md` | AI/科技赛道策略、Build in Public、中国开发者出海 | 404 |
+| `knowledge/x-mentor-core/research/06-cases-antipatterns.md` | 成功案例拆解与常见失败模式 | 369 |
 
 ### 核心人物
 
@@ -307,20 +323,38 @@ npx skills add alchaincyf/nuwa-skill
 
 ## 仓库结构
 
-```
-x-mentor-skill/
+```text
+X-BEAST/
+├── LICENSE
 ├── README.md
-├── SKILL.md                              # 路由+执行规则（249行，v2.0精简版）
-├── references/
-│   ├── writing-workshop.md               # 写作工坊（按需加载）
-│   ├── algorithm-niche.md                # 算法+AI赛道（按需加载）
-│   ├── growth-monetization.md            # 增长+变现（按需加载）
-│   ├── quality-analytics.md              # 质量+复盘+报告模板（按需加载）
-│   ├── mental-models-heuristics.md       # 心智模型+启发式（按需加载）
-│   └── research/                         # 6个调研文件（2475行，追溯来源时读取）
-├── user-data/                            # 用户诊断数据（自动生成）
-└── examples/
-    └── account-diagnosis-demo.md         # 真实X账号诊断案例
+├── SKILL.md
+├── .gitignore
+├── pyproject.toml
+├── requirements.txt
+├── .env.example
+├── docs/
+│   ├── architecture/
+│   ├── operating-manual/
+│   └── decisions/
+├── knowledge/
+│   ├── x-mentor-core/
+│   │   └── research/
+│   ├── personas/
+│   └── rubrics/
+├── pipeline/
+├── templates/
+├── examples/
+├── data/
+│   ├── inbox/
+│   ├── ideas/
+│   ├── drafts/
+│   ├── reviews/
+│   ├── published/
+│   └── analytics/
+├── scripts/
+├── src/
+│   └── x_beast/
+└── tests/
 ```
 
 ---
@@ -368,9 +402,7 @@ MIT — 随便用，随便改，随便蒸馏。
 | 📺 B站 | [AI进化论-花生](https://space.bilibili.com/14097567) |
 | ▶️ YouTube | [@Alchain](https://www.youtube.com/@Alchain) |
 | 📕 小红书 | [花生](https://www.xiaohongshu.com/user/profile/5abc6f17e8ac2b109179dfdf) |
-| 💬 公众号 | 微信搜「花叔」或扫码关注 ↓ |
-
-<img src="wechat-qrcode.jpg" alt="公众号二维码" width="360">
+| 💬 公众号 | 微信搜「花叔」 |
 
 <div align="center">
 
